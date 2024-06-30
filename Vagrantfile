@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
     yum -y install mtools git gcc tofu python3-pip
   SHELL
   config.vm.provision "shell", privileged: false, inline: <<-SHELLUNPRIV
-    ( if [ ! -f /vagrant/disk.img ]; then ./ipxe.sh && cp disk.img /vagrant ; else echo "/vagrant/disk.img already exists"; fi )
+    ( if [ ! -f /vagrant/disk.img ]; then ./ipxe.sh ; else echo "/vagrant/disk.img already exists"; fi )
     ls -l /vagrant/disk.img
     pip install --user python-openstackclient
     pip install --user ansible
