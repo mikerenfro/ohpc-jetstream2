@@ -1,6 +1,6 @@
 [opentofu]
 name=opentofu
-baseurl=https://packages.opentofu.org/opentofu/tofu/rpm_any/rpm_any/\$basearch
+baseurl=https://packages.opentofu.org/opentofu/tofu/rpm_any/rpm_any/$basearch
 repo_gpgcheck=0
 gpgcheck=1
 enabled=1
