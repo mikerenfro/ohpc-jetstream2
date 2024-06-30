@@ -9,3 +9,5 @@ local.ini
 /ipxe/
 /disk.img
 /disk.img-*
+/.vagrant/
+/app-cred-*-openrc.sh
