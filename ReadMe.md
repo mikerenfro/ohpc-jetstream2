@@ -98,6 +98,13 @@ Upload the disk image to your allocation with:
 openstack image create --disk-format raw --file disk.img --property hw_firmware_type='uefi' --property hw_scsi_model='virtio-scsi' --property hw_machine_type=q35 efi-ipxe
 ```
 
+## Setting up the infrastructure
+
+Change directory to this repository folder.
+If you're using the Vagrant VM, use `cd /vagrant`.
+
+Then run `./create.sh` to create the infrastructure (networks, subnets, compute instances)
+
 ## Debugging
 
 ```bash
