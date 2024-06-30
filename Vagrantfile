@@ -15,12 +15,18 @@ Vagrant.configure("2") do |config|
     yum -y install mtools git gcc tofu python3-pip
   SHELL
   config.vm.provision "shell", privileged: false, inline: <<-SHELLUNPRIV
-    ( if [ ! -f /vagrant/disk.img ]; then ./ipxe.sh ; else echo "/vagrant/disk.img already exists"; fi )
+    ( if [ ! -f /vagrant/disk.img ]; then cd /vagrant && ./ipxe.sh && rm -rf /vagrant/ipxe/ ; else echo "/vagrant/disk.img already exists"; fi )
     ls -l /vagrant/disk.img
     pip install --user python-openstackclient
     pip install --user ansible
     mkdir -p ~/.bashrc.d/
     cp /vagrant/app-cred-*-openrc.sh ~/.bashrc.d/
     ssh-keygen -t ed25519 -N '' -f ~/.ssh/id_ed25519
+    cat > /vagrant/ssh_key.tf <<EOD
+variable "ssh_public_key" {
+    type = string
+    default = "$(cat ~/.ssh/id_ed25519.pub)"
+}
+EOD
   SHELLUNPRIV
 end
