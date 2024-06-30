@@ -173,11 +173,16 @@ resource "openstack_networking_floatingip_associate_v2" "ohpc" {
 
 ## Compute
 
+resource "openstack_compute_keypair_v2" "ohpc-keypair" {
+  name       = "ohpc-keypair"
+  public_key = var.ssh_public_key
+}
+
 resource "openstack_compute_instance_v2" "ohpc" {
   name = "head"
   image_name = "Featured-RockyLinux9"
   flavor_name = "m3.small"
-  key_pair = "orange"
+  key_pair = "ohpc-keypair"
   network {
     port = openstack_networking_port_v2.ohpc-external.id
   }
@@ -203,7 +208,7 @@ resource "openstack_compute_instance_v2" "node" {
   security_groups = [openstack_networking_secgroup_v2.ohpc-internal.name]
 }
 
-## Ouptput
+## Output
 
 resource "local_file" "ansible" {
   filename = "local.ini"
